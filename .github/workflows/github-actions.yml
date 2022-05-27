@@ -1,7 +1,10 @@
-name: rec4u workflow
+name: flake8 Lint
 on: [push]
 jobs:
   Status-Check:
     runs-on: ubuntu-latest
     steps:
+      - name:
+        uses: actions/checkout@v2
+      - uses: tonybajan/flake8-check-action@v1.0.0
       - run: echo "No check now"
