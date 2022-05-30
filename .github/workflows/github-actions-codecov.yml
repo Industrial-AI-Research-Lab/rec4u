@@ -4,9 +4,21 @@ jobs:
   Status-Check:
     runs-on: ubuntu-latest
     steps:
-      - name:
-        uses: actions/checkout@v2
-      - uses: codecov/codecov-action@v2
+      - uses: actions/checkout@master
+      - name: Setup Python
+        uses: actions/setup-python@master
         with:
+          python-version: 3.9
+      - name: Generate coverage report
+        run: |
+          pip install pytest
+          pip install pytest-cov
+          pytest --cov=./ --cov-report=xml
+      - name: Upload report
+        uses: codecov/codecov-action@v2
+        with:
+          directory: ./coverage/reports/
+          name: codecov-umbrella
           file: ./res.xml
-          name: codecov
+          path_to_write_report: ./coverage/codecov_report.txt
+          verbose: true
