@@ -10,6 +10,7 @@ class Scraper:
     def __init__(self):
         driver = webdriver.Chrome(executable_path=)
 
+        # google, yandex sites
         driver.get("http://www.google.com")
         raise NotImplementedError
 

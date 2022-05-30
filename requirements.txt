@@ -3,3 +3,4 @@ beautifulsoup4~=4.10.0
 selenium~=4.1.2
 coveralls==3.3.1
 flake8==4.0.1
+apache-airflow==2.3.1
