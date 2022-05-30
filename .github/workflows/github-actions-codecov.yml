@@ -20,5 +20,4 @@ jobs:
           directory: ./coverage/reports/
           name: codecov-umbrella
           file: ./coverage.xml
-          path_to_write_report: ./coverage/codecov_report.txt
           verbose: true
