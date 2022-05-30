@@ -1,4 +1,4 @@
-name: flake8 Lint
+name: CodeCov
 on: push
 jobs:
   Status-Check:
@@ -6,6 +6,7 @@ jobs:
     steps:
       - name:
         uses: actions/checkout@v2
-      - uses: tonybajan/flake8-check-action@v1.0.0
+      - uses: codecov/codecov-action@v2
         with:
-          repotoken: ${{ secrets.GITHUB_TOKEN }}
+          file: ./res.xml
+          name: codecov
