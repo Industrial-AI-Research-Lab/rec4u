@@ -1,5 +1,5 @@
-name: flake8 Lint
-on: [push]
+name: flake8 Lint & coveralls
+on: push
 jobs:
   Status-Check:
     runs-on: ubuntu-latest
