@@ -1,0 +1,12 @@
+name: CodeCov
+on: push
+jobs:
+  Status-Check:
+    runs-on: ubuntu-latest
+    steps:
+      - name:
+        uses: actions/checkout@v2
+      - uses: codecov/codecov-action@v2
+        with:
+          file: ./res.xml
+          name: codecov
