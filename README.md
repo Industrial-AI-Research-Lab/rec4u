@@ -9,8 +9,8 @@
 <a href="https://github.com/Industrial-AI-Research-Lab/rec4u/actions/workflows/github-actions.yml">
         <img alt="status" src="https://github.com/Industrial-AI-Research-Lab/rec4u/actions/workflows/github-actions.yml/badge.svg">
 </a>
-<a href="https://github.com/Industrial-AI-Research-Lab/rec4u/actions/workflows/github-actions-codecov.yml">
-        <img alt="status" src="https://github.com/Industrial-AI-Research-Lab/rec4u/actions/workflows/github-actions-codecov.yml/badge.svg">
+<a href="https://codecov.io/gh/Industrial-AI-Research-Lab/rec4u">
+  <img src="https://codecov.io/gh/Industrial-AI-Research-Lab/rec4u/branch/main/graph/badge.svg?token=3Y7J5WJ88L"/>
 </a>
 <p>
 Framework for quick and flexible recommender system development.  
