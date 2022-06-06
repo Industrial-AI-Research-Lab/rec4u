@@ -27,6 +27,20 @@ def process_text(text):
     text = ' '.join(text.split())
     return text.strip()
 
+def process_req(list_of_req):
+    all_lemmatized = []
+    for req_i in list_of_req:
+        list_j = []
+        try:
+            for req_j in req_i.split(' || '):
+                processed = process_text(req_j)
+                list_j.append(processed)
+            all_text = ' || '.join(list_j)
+            lemmatized = ''.join(m.lemmatize(all_text)).strip()
+            all_lemmatized.append(lemmatized)
+        except:
+            all_lemmatized.append('')
+    return all_lemmatized
 
 def get_bigrams(text):
     return create_ngrams(text, 2)
