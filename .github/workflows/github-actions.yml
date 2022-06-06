@@ -1,11 +1,20 @@
 name: flake8 Lint
 on: push
 jobs:
-  Status-Check:
+  flake8_py3:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: tonybajan/flake8-check-action@v1.0.0
+      - name: Setup Python
+        uses: actions/setup-python@v1
         with:
-          select: E3,E4,E5,E7,W6,F,B,G0
-          repotoken: ${{ secrets.GITHUB_TOKEN }}
+          python-version: 3.9
+      - name: Checkout PyTorch
+        uses: actions/checkout@master
+      - name: Install flake8
+        run: pip install flake8
+      - name: Run flake8
+        uses: suo/flake8-github-action@releases/v1
+        with:
+          checkName: 'flake8_py3'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
