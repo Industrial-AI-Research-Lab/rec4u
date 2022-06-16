@@ -1,0 +1,800 @@
+{
+  "level": 0,
+  "description": "ozon",
+  "isAdvanced": true,
+  "browser": {
+    "type": "visible",
+    "instances": "1",
+    "tabs": "5"
+  },
+  "master": "127.0.0.1:3001",
+  "children": [
+    {
+      "level": 1,
+      "children": [
+        {
+          "level": 2,
+          "children": [
+            {
+              "level": 3,
+              "children": [
+                {
+                  "level": 4,
+                  "children": [],
+                  "task": {
+                    "name": "ozon item reviews alternative",
+                    "curl": "{{commentsUrl}}{{^commentsUrl}}https://www.ozon.ru/product/smesitel-dlya-umyvalnika-rakoviny-v-vannuyu-komnatu-izliv-povorotnyy-s-gibkoy-podvodkoy-364627078/reviews{{/commentsUrl}}",
+                    "entitySelector": "[id*=\"state-listReviewsDesktop\"]",
+                    "attributesSelectors": [
+                      {
+                        "attribute": "data-state",
+                        "name": "json"
+                      }
+                    ],
+                    "id": "ozon item reviews alternative",
+                    "blockImages": {
+                      "on": false
+                    },
+                    "requestInterceptorReqex": "ozon.ru/api/composer-api.bx/widget/json/v2",
+                    "requestInterceptorRegex": "/reviews?page=",
+                    "templateKeys": [
+                      "commentsUrl"
+                    ],
+                    "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/reviews.json",
+                    "runid": "ba7d4314bed793490c9623c8176653d7",
+                    "owner": "default"
+                  },
+                  "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/reviews.json"
+                }
+              ],
+              "task": {
+                "name": "ozon item data",
+                "curl": "{{url}}{{^ url}}https://www.ozon.ru/product/dalnomer-sndway-sw-m50-50-m-1-5-mm-334959299/?sh=YFHNzoJtWw/{{/url}}",
+                "attributesSelectors": [
+                  {
+                    "selector": "[data-widget=\"webProductHeading\"]",
+                    "name": "title"
+                  },
+                  {
+                    "selector": ".price",
+                    "name": "prices",
+                    "multiple": true
+                  },
+                  {
+                    "selector": "[data-widget=\"breadCrumbsPdp\"] li ",
+                    "name": "breadCrumbs",
+                    "multiple": true
+                  },
+                  {
+                    "selector": "a[title*=\"отзыв\"]",
+                    "name": "comments"
+                  },
+                  {
+                    "selector": "a[title*=\"отзыв\"]",
+                    "name": "commentsUrl",
+                    "attribute": "href"
+                  },
+                  {
+                    "selector": "a[title*=\"видео\"]",
+                    "name": "videos"
+                  },
+                  {
+                    "selector": "a[title*=\"вопрос\"]",
+                    "name": "questions"
+                  },
+                  {
+                    "selector": "[data-widget=\"webDescription\"]",
+                    "name": "description"
+                  },
+                  {
+                    "selector": "p",
+                    "name": "equipment"
+                  },
+                  {
+                    "selector": "dl > dt",
+                    "name": "labels",
+                    "multiple": true
+                  },
+                  {
+                    "selector": "dl > dd",
+                    "name": "values",
+                    "multiple": true
+                  },
+                  {
+                    "attribute": "href",
+                    "name": "sellerUrl",
+                    "selector": "a[href*='https://www.ozon.ru/seller'][title]",
+                    "multiple": true
+                  },
+                  {
+                    "attribute": "title",
+                    "selector": "a[href*='https://www.ozon.ru/seller'][title]",
+                    "name": "sellerName",
+                    "multiple": true
+                  },
+                  {
+                    "selector": "[data-widget=\"webGallery\"] img",
+                    "name": "imgs",
+                    "multiple": true,
+                    "attribute": "src"
+                  },
+                  {
+                    "selector": "[data-widget=\"webBrand\"] img",
+                    "name": "brandName",
+                    "attribute": "title"
+                  },
+                  {
+                    "selector": "[data-widget=\"webBrand\"] a",
+                    "name": "brandUrl",
+                    "attribute": "href"
+                  },
+                  {
+                    "selector": "[data-widget=\"webDetailSKU\"]",
+                    "name": "id"
+                  },
+                  {
+                    "selector": "[data-widget=\"webDelivery\"]",
+                    "name": "delivery"
+                  },
+                  {
+                    "selector": ".sellerRating",
+                    "name": "sellerRating"
+                  },
+                  {
+                    "selector": ".saleInTime",
+                    "name": "saleInTime"
+                  },
+                  {
+                    "name": "brandName2",
+                    "selector": "[data-widget=\"webBrand\"] "
+                  },
+                  {
+                    "selector": "[data-widget=\"tagList\"] a",
+                    "name": "tagList",
+                    "multiple": true
+                  },
+                  {
+                    "name": "tagListUrls",
+                    "multiple": true,
+                    "selector": "[data-widget=\"tagList\"] a",
+                    "attribute": "href"
+                  }
+                ],
+                "entitySelector": "body",
+                "id": "ozon item data",
+                "codeInjector": {
+                  "on": true,
+                  "codeStr": "$(\"div[data-widget='webPrice'] div span:contains('₽')\").addClass('price');\n$(\"span:contains('рейтинг товаров')\").addClass('sellerRating');\n$(\"span:contains('доставок вовремя')\").addClass('saleInTime');\n"
+                },
+                "pager": {
+                  "on": false
+                },
+                "clicker": {
+                  "on": false,
+                  "selector": "",
+                  "waittime": "1000"
+                },
+                "waiter": {
+                  "on": true,
+                  "time": "",
+                  "selector": "[data-widget=\"webDescription\"]"
+                },
+                "remover": {
+                  "on": false
+                },
+                "scroller": {
+                  "on": false,
+                  "selector": "",
+                  "waittime": ""
+                },
+                "downscroller": {
+                  "on": false
+                },
+                "scheduler": {
+                  "on": false
+                },
+                "blockImages": {
+                  "on": false
+                },
+                "templateKeys": [
+                  "url"
+                ],
+                "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/items-data.json",
+                "runid": "ba7d4314bed793490c9623c8176653d7",
+                "owner": "default",
+                "nextTasks": [
+                  {
+                    "name": "ozon item reviews alternative",
+                    "curl": "{{commentsUrl}}{{^commentsUrl}}https://www.ozon.ru/product/smesitel-dlya-umyvalnika-rakoviny-v-vannuyu-komnatu-izliv-povorotnyy-s-gibkoy-podvodkoy-364627078/reviews{{/commentsUrl}}",
+                    "entitySelector": "[id*=\"state-listReviewsDesktop\"]",
+                    "attributesSelectors": [
+                      {
+                        "attribute": "data-state",
+                        "name": "json"
+                      }
+                    ],
+                    "id": "ozon item reviews alternative",
+                    "blockImages": {
+                      "on": false
+                    },
+                    "requestInterceptorReqex": "ozon.ru/api/composer-api.bx/widget/json/v2",
+                    "requestInterceptorRegex": "/reviews?page=",
+                    "templateKeys": [
+                      "commentsUrl"
+                    ],
+                    "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/reviews.json",
+                    "runid": "ba7d4314bed793490c9623c8176653d7",
+                    "owner": "default"
+                  }
+                ]
+              },
+              "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/items-data.json"
+            }
+          ],
+          "task": {
+            "name": "ozon stroitelstvo category item",
+            "curl": "{{url}}{{^ url}}https://www.ozon.ru/category/krepezhnye-izdeliya-metizy-31883/?page=54{{/url}}",
+            "entitySelector": ".widget-search-result-container > div > div",
+            "attributesSelectors": [
+              {
+                "name": "title",
+                "selector": "a.tile-hover-target > span > span"
+              },
+              {
+                "name": "url",
+                "selector": "a.tile-hover-target ",
+                "attribute": "href"
+              },
+              {
+                "selector": ".price",
+                "name": "price",
+                "multiple": false
+              },
+              {
+                "selector": ".commentsCount",
+                "name": "commentsCount"
+              },
+              {
+                "selector": ".premium",
+                "name": "premium"
+              },
+              {
+                "selector": ".sale",
+                "name": "sale"
+              },
+              {
+                "selector": ".bestSeller",
+                "name": "bestSeller"
+              },
+              {
+                "selector": ".pager div div",
+                "name": "pager"
+              }
+            ],
+            "id": "ozon stroitelstvo category item",
+            "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/items.json",
+            "pager": {
+              "on": true,
+              "selector": ".pager",
+              "attribute": "href"
+            },
+            "clicker": {
+              "on": false
+            },
+            "waiter": {
+              "on": true,
+              "time": "5000"
+            },
+            "codeInjector": {
+              "on": true,
+              "codeStr": "$(\"span:contains('₽')\").addClass('price');\n$(\"a:contains('отзыв')\").addClass('commentsCount');\n$(\"div[style*='ozPremiumBlue'] span\").addClass('premium');\n$(\"div[style*='ozCtrlSale'] span\").addClass('sale');\n$(\"span[style*='ozOrange'] span\").addClass('bestSeller');\n\ndocument.querySelectorAll('a.tile-hover-target').forEach(a => {\n    a.href = a.href.split('?')[0]\n})\n\n$(\"a:contains('Дальше')\").addClass('pager');\ndocument.querySelector('.pager')?.scrollIntoView({ behavior: 'smooth' })\ndocument.querySelectorAll('.pager').forEach(a => {\n    a.href = a.href.split('&tf_state')[0]\n})\n"
+            },
+            "runid": "ba7d4314bed793490c9623c8176653d7",
+            "owner": "default",
+            "templateKeys": [
+              "url"
+            ],
+            "remover": {
+              "on": false
+            },
+            "scroller": {
+              "on": false
+            },
+            "downscroller": {
+              "on": false
+            },
+            "scheduler": {
+              "on": false
+            },
+            "blockImages": {
+              "on": false
+            },
+            "nextTasks": [
+              {
+                "name": "ozon item data",
+                "curl": "{{url}}{{^ url}}https://www.ozon.ru/product/dalnomer-sndway-sw-m50-50-m-1-5-mm-334959299/?sh=YFHNzoJtWw/{{/url}}",
+                "attributesSelectors": [
+                  {
+                    "selector": "[data-widget=\"webProductHeading\"]",
+                    "name": "title"
+                  },
+                  {
+                    "selector": ".price",
+                    "name": "prices",
+                    "multiple": true
+                  },
+                  {
+                    "selector": "[data-widget=\"breadCrumbsPdp\"] li ",
+                    "name": "breadCrumbs",
+                    "multiple": true
+                  },
+                  {
+                    "selector": "a[title*=\"отзыв\"]",
+                    "name": "comments"
+                  },
+                  {
+                    "selector": "a[title*=\"отзыв\"]",
+                    "name": "commentsUrl",
+                    "attribute": "href"
+                  },
+                  {
+                    "selector": "a[title*=\"видео\"]",
+                    "name": "videos"
+                  },
+                  {
+                    "selector": "a[title*=\"вопрос\"]",
+                    "name": "questions"
+                  },
+                  {
+                    "selector": "[data-widget=\"webDescription\"]",
+                    "name": "description"
+                  },
+                  {
+                    "selector": "p",
+                    "name": "equipment"
+                  },
+                  {
+                    "selector": "dl > dt",
+                    "name": "labels",
+                    "multiple": true
+                  },
+                  {
+                    "selector": "dl > dd",
+                    "name": "values",
+                    "multiple": true
+                  },
+                  {
+                    "attribute": "href",
+                    "name": "sellerUrl",
+                    "selector": "a[href*='https://www.ozon.ru/seller'][title]",
+                    "multiple": true
+                  },
+                  {
+                    "attribute": "title",
+                    "selector": "a[href*='https://www.ozon.ru/seller'][title]",
+                    "name": "sellerName",
+                    "multiple": true
+                  },
+                  {
+                    "selector": "[data-widget=\"webGallery\"] img",
+                    "name": "imgs",
+                    "multiple": true,
+                    "attribute": "src"
+                  },
+                  {
+                    "selector": "[data-widget=\"webBrand\"] img",
+                    "name": "brandName",
+                    "attribute": "title"
+                  },
+                  {
+                    "selector": "[data-widget=\"webBrand\"] a",
+                    "name": "brandUrl",
+                    "attribute": "href"
+                  },
+                  {
+                    "selector": "[data-widget=\"webDetailSKU\"]",
+                    "name": "id"
+                  },
+                  {
+                    "selector": "[data-widget=\"webDelivery\"]",
+                    "name": "delivery"
+                  },
+                  {
+                    "selector": ".sellerRating",
+                    "name": "sellerRating"
+                  },
+                  {
+                    "selector": ".saleInTime",
+                    "name": "saleInTime"
+                  },
+                  {
+                    "name": "brandName2",
+                    "selector": "[data-widget=\"webBrand\"] "
+                  },
+                  {
+                    "selector": "[data-widget=\"tagList\"] a",
+                    "name": "tagList",
+                    "multiple": true
+                  },
+                  {
+                    "name": "tagListUrls",
+                    "multiple": true,
+                    "selector": "[data-widget=\"tagList\"] a",
+                    "attribute": "href"
+                  }
+                ],
+                "entitySelector": "body",
+                "id": "ozon item data",
+                "codeInjector": {
+                  "on": true,
+                  "codeStr": "$(\"div[data-widget='webPrice'] div span:contains('₽')\").addClass('price');\n$(\"span:contains('рейтинг товаров')\").addClass('sellerRating');\n$(\"span:contains('доставок вовремя')\").addClass('saleInTime');\n"
+                },
+                "pager": {
+                  "on": false
+                },
+                "clicker": {
+                  "on": false,
+                  "selector": "",
+                  "waittime": "1000"
+                },
+                "waiter": {
+                  "on": true,
+                  "time": "",
+                  "selector": "[data-widget=\"webDescription\"]"
+                },
+                "remover": {
+                  "on": false
+                },
+                "scroller": {
+                  "on": false,
+                  "selector": "",
+                  "waittime": ""
+                },
+                "downscroller": {
+                  "on": false
+                },
+                "scheduler": {
+                  "on": false
+                },
+                "blockImages": {
+                  "on": false
+                },
+                "templateKeys": [
+                  "url"
+                ],
+                "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/items-data.json",
+                "runid": "ba7d4314bed793490c9623c8176653d7",
+                "owner": "default",
+                "nextTasks": [
+                  {
+                    "name": "ozon item reviews alternative",
+                    "curl": "{{commentsUrl}}{{^commentsUrl}}https://www.ozon.ru/product/smesitel-dlya-umyvalnika-rakoviny-v-vannuyu-komnatu-izliv-povorotnyy-s-gibkoy-podvodkoy-364627078/reviews{{/commentsUrl}}",
+                    "entitySelector": "[id*=\"state-listReviewsDesktop\"]",
+                    "attributesSelectors": [
+                      {
+                        "attribute": "data-state",
+                        "name": "json"
+                      }
+                    ],
+                    "id": "ozon item reviews alternative",
+                    "blockImages": {
+                      "on": false
+                    },
+                    "requestInterceptorReqex": "ozon.ru/api/composer-api.bx/widget/json/v2",
+                    "requestInterceptorRegex": "/reviews?page=",
+                    "templateKeys": [
+                      "commentsUrl"
+                    ],
+                    "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/reviews.json",
+                    "runid": "ba7d4314bed793490c9623c8176653d7",
+                    "owner": "default"
+                  }
+                ]
+              }
+            ]
+          },
+          "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/items.json"
+        }
+      ],
+      "task": {
+        "name": "ozon stroitelstvo category",
+        "curl": "https://www.ozon.ru/category/stroitelstvo-i-remont-9700/",
+        "entitySelector": "aside > div > div > a ",
+        "attributesSelectors": [
+          {
+            "attribute": "text",
+            "name": "text"
+          },
+          {
+            "attribute": "href",
+            "name": "url"
+          }
+        ],
+        "id": "ozon stroitelstvo category",
+        "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/categories.json",
+        "codeInjector": {
+          "on": true,
+          "codeStr": "$(\"span:contains('Показать все')\").click();"
+        },
+        "blockImages": {
+          "on": false
+        },
+        "runid": "ba7d4314bed793490c9623c8176653d7",
+        "owner": "default",
+        "nextTasks": [
+          {
+            "name": "ozon stroitelstvo category item",
+            "curl": "{{url}}{{^ url}}https://www.ozon.ru/category/krepezhnye-izdeliya-metizy-31883/?page=54{{/url}}",
+            "entitySelector": ".widget-search-result-container > div > div",
+            "attributesSelectors": [
+              {
+                "name": "title",
+                "selector": "a.tile-hover-target > span > span"
+              },
+              {
+                "name": "url",
+                "selector": "a.tile-hover-target ",
+                "attribute": "href"
+              },
+              {
+                "selector": ".price",
+                "name": "price",
+                "multiple": false
+              },
+              {
+                "selector": ".commentsCount",
+                "name": "commentsCount"
+              },
+              {
+                "selector": ".premium",
+                "name": "premium"
+              },
+              {
+                "selector": ".sale",
+                "name": "sale"
+              },
+              {
+                "selector": ".bestSeller",
+                "name": "bestSeller"
+              },
+              {
+                "selector": ".pager div div",
+                "name": "pager"
+              }
+            ],
+            "id": "ozon stroitelstvo category item",
+            "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/items.json",
+            "pager": {
+              "on": true,
+              "selector": ".pager",
+              "attribute": "href"
+            },
+            "clicker": {
+              "on": false
+            },
+            "waiter": {
+              "on": true,
+              "time": "5000"
+            },
+            "codeInjector": {
+              "on": true,
+              "codeStr": "$(\"span:contains('₽')\").addClass('price');\n$(\"a:contains('отзыв')\").addClass('commentsCount');\n$(\"div[style*='ozPremiumBlue'] span\").addClass('premium');\n$(\"div[style*='ozCtrlSale'] span\").addClass('sale');\n$(\"span[style*='ozOrange'] span\").addClass('bestSeller');\n\ndocument.querySelectorAll('a.tile-hover-target').forEach(a => {\n    a.href = a.href.split('?')[0]\n})\n\n$(\"a:contains('Дальше')\").addClass('pager');\ndocument.querySelector('.pager')?.scrollIntoView({ behavior: 'smooth' })\ndocument.querySelectorAll('.pager').forEach(a => {\n    a.href = a.href.split('&tf_state')[0]\n})\n"
+            },
+            "runid": "ba7d4314bed793490c9623c8176653d7",
+            "owner": "default",
+            "templateKeys": [
+              "url"
+            ],
+            "remover": {
+              "on": false
+            },
+            "scroller": {
+              "on": false
+            },
+            "downscroller": {
+              "on": false
+            },
+            "scheduler": {
+              "on": false
+            },
+            "blockImages": {
+              "on": false
+            },
+            "nextTasks": [
+              {
+                "name": "ozon item data",
+                "curl": "{{url}}{{^ url}}https://www.ozon.ru/product/dalnomer-sndway-sw-m50-50-m-1-5-mm-334959299/?sh=YFHNzoJtWw/{{/url}}",
+                "attributesSelectors": [
+                  {
+                    "selector": "[data-widget=\"webProductHeading\"]",
+                    "name": "title"
+                  },
+                  {
+                    "selector": ".price",
+                    "name": "prices",
+                    "multiple": true
+                  },
+                  {
+                    "selector": "[data-widget=\"breadCrumbsPdp\"] li ",
+                    "name": "breadCrumbs",
+                    "multiple": true
+                  },
+                  {
+                    "selector": "a[title*=\"отзыв\"]",
+                    "name": "comments"
+                  },
+                  {
+                    "selector": "a[title*=\"отзыв\"]",
+                    "name": "commentsUrl",
+                    "attribute": "href"
+                  },
+                  {
+                    "selector": "a[title*=\"видео\"]",
+                    "name": "videos"
+                  },
+                  {
+                    "selector": "a[title*=\"вопрос\"]",
+                    "name": "questions"
+                  },
+                  {
+                    "selector": "[data-widget=\"webDescription\"]",
+                    "name": "description"
+                  },
+                  {
+                    "selector": "p",
+                    "name": "equipment"
+                  },
+                  {
+                    "selector": "dl > dt",
+                    "name": "labels",
+                    "multiple": true
+                  },
+                  {
+                    "selector": "dl > dd",
+                    "name": "values",
+                    "multiple": true
+                  },
+                  {
+                    "attribute": "href",
+                    "name": "sellerUrl",
+                    "selector": "a[href*='https://www.ozon.ru/seller'][title]",
+                    "multiple": true
+                  },
+                  {
+                    "attribute": "title",
+                    "selector": "a[href*='https://www.ozon.ru/seller'][title]",
+                    "name": "sellerName",
+                    "multiple": true
+                  },
+                  {
+                    "selector": "[data-widget=\"webGallery\"] img",
+                    "name": "imgs",
+                    "multiple": true,
+                    "attribute": "src"
+                  },
+                  {
+                    "selector": "[data-widget=\"webBrand\"] img",
+                    "name": "brandName",
+                    "attribute": "title"
+                  },
+                  {
+                    "selector": "[data-widget=\"webBrand\"] a",
+                    "name": "brandUrl",
+                    "attribute": "href"
+                  },
+                  {
+                    "selector": "[data-widget=\"webDetailSKU\"]",
+                    "name": "id"
+                  },
+                  {
+                    "selector": "[data-widget=\"webDelivery\"]",
+                    "name": "delivery"
+                  },
+                  {
+                    "selector": ".sellerRating",
+                    "name": "sellerRating"
+                  },
+                  {
+                    "selector": ".saleInTime",
+                    "name": "saleInTime"
+                  },
+                  {
+                    "name": "brandName2",
+                    "selector": "[data-widget=\"webBrand\"] "
+                  },
+                  {
+                    "selector": "[data-widget=\"tagList\"] a",
+                    "name": "tagList",
+                    "multiple": true
+                  },
+                  {
+                    "name": "tagListUrls",
+                    "multiple": true,
+                    "selector": "[data-widget=\"tagList\"] a",
+                    "attribute": "href"
+                  }
+                ],
+                "entitySelector": "body",
+                "id": "ozon item data",
+                "codeInjector": {
+                  "on": true,
+                  "codeStr": "$(\"div[data-widget='webPrice'] div span:contains('₽')\").addClass('price');\n$(\"span:contains('рейтинг товаров')\").addClass('sellerRating');\n$(\"span:contains('доставок вовремя')\").addClass('saleInTime');\n"
+                },
+                "pager": {
+                  "on": false
+                },
+                "clicker": {
+                  "on": false,
+                  "selector": "",
+                  "waittime": "1000"
+                },
+                "waiter": {
+                  "on": true,
+                  "time": "",
+                  "selector": "[data-widget=\"webDescription\"]"
+                },
+                "remover": {
+                  "on": false
+                },
+                "scroller": {
+                  "on": false,
+                  "selector": "",
+                  "waittime": ""
+                },
+                "downscroller": {
+                  "on": false
+                },
+                "scheduler": {
+                  "on": false
+                },
+                "blockImages": {
+                  "on": false
+                },
+                "templateKeys": [
+                  "url"
+                ],
+                "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/items-data.json",
+                "runid": "ba7d4314bed793490c9623c8176653d7",
+                "owner": "default",
+                "nextTasks": [
+                  {
+                    "name": "ozon item reviews alternative",
+                    "curl": "{{commentsUrl}}{{^commentsUrl}}https://www.ozon.ru/product/smesitel-dlya-umyvalnika-rakoviny-v-vannuyu-komnatu-izliv-povorotnyy-s-gibkoy-podvodkoy-364627078/reviews{{/commentsUrl}}",
+                    "entitySelector": "[id*=\"state-listReviewsDesktop\"]",
+                    "attributesSelectors": [
+                      {
+                        "attribute": "data-state",
+                        "name": "json"
+                      }
+                    ],
+                    "id": "ozon item reviews alternative",
+                    "blockImages": {
+                      "on": false
+                    },
+                    "requestInterceptorReqex": "ozon.ru/api/composer-api.bx/widget/json/v2",
+                    "requestInterceptorRegex": "/reviews?page=",
+                    "templateKeys": [
+                      "commentsUrl"
+                    ],
+                    "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/reviews.json",
+                    "runid": "ba7d4314bed793490c9623c8176653d7",
+                    "owner": "default"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "out": "/mnt/ess_storage/DN_1/petrov/ozon/stroitelstvo/categories.json"
+    }
+  ],
+  "runtype": "local",
+  "id": "ba7d4314bed793490c9623c8176653d7",
+  "date": "2022-06-16T17:52:32.608Z",
+  "tasksStatus": {},
+  "owner": "default",
+  "owner_token": "default",
+  "moneyLimit": 1000000,
+  "tgNotifyChats": ""
+}
