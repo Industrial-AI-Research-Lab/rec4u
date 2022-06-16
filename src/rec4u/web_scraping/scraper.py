@@ -1,3 +1,9 @@
+'''
+Simple crawler for testing purposes
+Integration of the distributed crawler system is in progress
+
+'''
+
 import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
