@@ -1,7 +1,7 @@
 import random
 from additional_functions import flatten, label_function, choose_samples, find_slot_name, find_slot_index
 from owlready2 import *
-onto = get_ontology('/home/jovyan/notebooks/_Main/Car4U/Ontology/autobot.owl').load()
+onto = get_ontology('ontology_name.owl').load()
 
 
 def collect_dataset_single_hop(intent_label, intent_label_translation, num_examples_per_intent, generated_context, ontology_name):
