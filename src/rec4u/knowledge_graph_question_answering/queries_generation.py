@@ -2,7 +2,7 @@ import re
 import itertools
 from additional_functions import flatten, find_intent, find_slot, find_slot_content, find_slot_label, find_param
 from owlready2 import *
-onto = get_ontology("/home/jovyan/notebooks/_Main/Car4U/Ontology/autobot.owl").load()
+onto = get_ontology("ontology_name.owl").load()
 
 
 def intent_template_function(intent_labels):
