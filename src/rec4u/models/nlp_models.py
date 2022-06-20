@@ -8,6 +8,21 @@ from torch.utils.data import TensorDataset, DataLoader
 from transformers import BertTokenizer
 from dostoevsky.tokenization import RegexTokenizer
 from dostoevsky.models import FastTextSocialNetworkModel
+import os
+
+from deeppavlov import build_model, configs
+
+import csv
+import itertools
+import pandas as pd
+
+
+class SentimentModel:
+    def __init__(self, device="cpu"):
+        self.model = build_model(configs.classifiers.rusentiment_bert, download=False)
+
+    def predict(self, texts):
+        return [self.model([text]) for text in texts]
 
 
 class RubertModel:
